@@ -1,0 +1,13 @@
+#!/bin/sh
+
+# compile script for the programs in this directory.
+# works ok on my machine with Linux/GCC .
+
+. ../../compiler
+
+for i in *.c
+do
+	echo $i :
+	j=`basename $i .c`
+	eval $CC $CFLAGS $i $LDFLAGS -o $j
+done

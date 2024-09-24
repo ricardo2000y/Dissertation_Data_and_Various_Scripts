@@ -1,0 +1,120 @@
+Opening file: 'restart_2d-logistic.bin' (SHA-256 hash d5c28f6ec2299d6615c7c37a0a3d10f3fc80135515f17e50b8596439b3f7b7c8)
+Loaded 1000000 samples made up of 256 distinct 8-bit-wide symbols.
+H_I: 7.353758
+ALPHA: 5.0251553006530614e-06, X_cutoff: 23
+X_max: 17
+
+Restart Sanity Check Passed...
+
+Running non-IID tests...
+
+Running Most Common Value Estimate...
+Literal Most Common Value Estimate: Mode count = 4051
+Literal Most Common Value Estimate: p-hat = 0.0040509999999999999
+Literal Most Common Value Estimate: p_u = 0.0042146126836741316
+Literal Most Common Value Estimate: min entropy = 7.8903842288250434
+	Most Common Value Estimate (Rows) = 7.890384 / 8 bit(s)
+Literal Most Common Value Estimate: Mode count = 4051
+Literal Most Common Value Estimate: p-hat = 0.0040509999999999999
+Literal Most Common Value Estimate: p_u = 0.0042146126836741316
+Literal Most Common Value Estimate: min entropy = 7.8903842288250434
+	Most Common Value Estimate (Cols) = 7.890384 / 8 bit(s)
+
+Running Tuple Estimates...
+Literal t-Tuple Estimate: t = 1
+Literal t-Tuple Estimate: p-hat_max = 0.004050999999999999999855
+Literal t-Tuple Estimate: p_u = 0.004214612683674131995091
+Literal t-Tuple Estimate: min entropy = 7.8903842288250434
+Literal LRS Estimate: u = 2
+Literal LRS Estimate: v = 4
+Literal LRS Estimate: p-hat = 0.004015541300074110679323
+Literal LRS Estimate: p_u = 0.004178439252766452630246
+Literal LRS Estimate: min entropy = 7.9028201229229698
+Literal t-Tuple Estimate: t = 1
+Literal t-Tuple Estimate: p-hat_max = 0.004050999999999999999855
+Literal t-Tuple Estimate: p_u = 0.004214612683674131995091
+Literal t-Tuple Estimate: min entropy = 7.8903842288250434
+Literal LRS Estimate: u = 2
+Literal LRS Estimate: v = 5
+Literal LRS Estimate: p-hat = 0.004573058750790356100411
+Literal LRS Estimate: p_u = 0.004746848990617430120743
+Literal LRS Estimate: min entropy = 7.7188141299764093
+	T-Tuple Test Estimate (Rows) = 7.890384 / 8 bit(s)
+	T-Tuple Test Estimate (Cols) = 7.890384 / 8 bit(s)
+	LRS Test Estimate (Rows) = 7.902820 / 8 bit(s)
+	LRS Test Estimate (Cols) = 7.718814 / 8 bit(s)
+
+Running Predictor Estimates...
+Literal MultiMCW Prediction Estimate: C = 3935
+Literal MultiMCW Prediction Estimate: r = 3
+Literal MultiMCW Prediction Estimate: N = 999937
+Literal MultiMCW Prediction Estimate: P_global = 0.0039352479206189988
+Literal MultiMCW Prediction Estimate: P_global' = 0.0040965206041184083
+Literal MultiMCW Prediction Estimate: P_local can't change the result.
+Literal MultiMCW Prediction Estimate: min entropy = 7.9313852135495111
+	Multi Most Common in Window (MultiMCW) Prediction Test Estimate (Rows) = 7.931385 / 8 bit(s)
+Literal MultiMCW Prediction Estimate: C = 3924
+Literal MultiMCW Prediction Estimate: r = 3
+Literal MultiMCW Prediction Estimate: N = 999937
+Literal MultiMCW Prediction Estimate: P_global = 0.0039242472275753375
+Literal MultiMCW Prediction Estimate: P_global' = 0.0040852952297356446
+Literal MultiMCW Prediction Estimate: P_local can't change the result.
+Literal MultiMCW Prediction Estimate: min entropy = 7.9353439440916
+	Multi Most Common in Window (MultiMCW) Prediction Test Estimate (Cols) = 7.935344 / 8 bit(s)
+Literal Lag Prediction Estimate: C = 4057
+Literal Lag Prediction Estimate: r = 3
+Literal Lag Prediction Estimate: N = 999999
+Literal Lag Prediction Estimate: P_global = 0.0040570040570040572
+Literal Lag Prediction Estimate: P_global' = 0.0042207375307099235
+Literal Lag Prediction Estimate: P_local can't change the result.
+Literal Lag Prediction Estimate: min entropy = 7.8882891675002549
+	Lag Prediction Test Estimate (Rows) = 7.888289 / 8 bit(s)
+Literal Lag Prediction Estimate: C = 3844
+Literal Lag Prediction Estimate: r = 3
+Literal Lag Prediction Estimate: N = 999999
+Literal Lag Prediction Estimate: P_global = 0.0038440038440038442
+Literal Lag Prediction Estimate: P_global' = 0.0040033982579413185
+Literal Lag Prediction Estimate: P_local can't change the result.
+Literal Lag Prediction Estimate: min entropy = 7.9645591425371487
+	Lag Prediction Test Estimate (Cols) = 7.964559 / 8 bit(s)
+Literal MultiMMC Prediction Estimate: C = 3901
+Literal MultiMMC Prediction Estimate: r = 3
+Literal MultiMMC Prediction Estimate: N = 999998
+Literal MultiMMC Prediction Estimate: P_global = 0.0039010078020156038
+Literal MultiMMC Prediction Estimate: P_global' = 0.0040615752078357785
+Literal MultiMMC Prediction Estimate: P_local can't change the result.
+Literal MultiMMC Prediction Estimate: min entropy = 7.9437449257753796
+	Multi Markov Model with Counting (MultiMMC) Prediction Test Estimate (Rows) = 7.943745 / 8 bit(s)
+Literal MultiMMC Prediction Estimate: C = 3807
+Literal MultiMMC Prediction Estimate: r = 3
+Literal MultiMMC Prediction Estimate: N = 999998
+Literal MultiMMC Prediction Estimate: P_global = 0.0038070076140152278
+Literal MultiMMC Prediction Estimate: P_global' = 0.0039656361605450536
+Literal MultiMMC Prediction Estimate: P_local can't change the result.
+Literal MultiMMC Prediction Estimate: min entropy = 7.9782319655058922
+	Multi Markov Model with Counting (MultiMMC) Prediction Test Estimate (Cols) = 7.978232 / 8 bit(s)
+Literal LZ78Y Prediction Estimate: C = 3900
+Literal LZ78Y Prediction Estimate: r = 3
+Literal LZ78Y Prediction Estimate: N = 999983
+Literal LZ78Y Prediction Estimate: P_global = 0.0039000663011271191
+Literal LZ78Y Prediction Estimate: P_global' = 0.0040606156094594613
+Literal LZ78Y Prediction Estimate: P_local can't change the result.
+Literal LZ78Y Prediction Estimate: min entropy = 7.9440858209491916
+	LZ78Y Prediction Test Estimate (Rows) = 7.944086 / 8 bit(s)
+Literal LZ78Y Prediction Estimate: C = 3807
+Literal LZ78Y Prediction Estimate: r = 3
+Literal LZ78Y Prediction Estimate: N = 999983
+Literal LZ78Y Prediction Estimate: P_global = 0.0038070647201002418
+Literal LZ78Y Prediction Estimate: P_global' = 0.0039656956415532012
+Literal LZ78Y Prediction Estimate: P_local can't change the result.
+Literal LZ78Y Prediction Estimate: min entropy = 7.9782103265283224
+	LZ78Y Prediction Test Estimate (Cols) = 7.978210 / 8 bit(s)
+
+H_r: 7.888289
+H_c: 7.718814
+H_I: 7.353758
+
+Validation Test Passed...
+
+min(H_r, H_c, H_I): 7.353758
+

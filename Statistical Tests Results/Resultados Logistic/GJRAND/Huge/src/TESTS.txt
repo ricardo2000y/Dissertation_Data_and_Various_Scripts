@@ -1,0 +1,384 @@
+All these tests read data from standard input and attempt to measure
+in some way how plausible it is that the input data is actually
+uniform random bits.
+
+Each test ends by printing a P-value. The P-value is supposed to be the
+probability that a truly uniform random source would produce a test
+statistic as extreme or worse than the test statistic actually calculated.
+Very informally: the P-value is in the range 0 to 1, and if it is close
+to 0, the data read is probably not random.
+
+When running under mcp, some of the faster tests are done at the
+nominal size of the mcp run and the slower ones are done on reduced sizes.
+Nominal mcp sizes are
+--tiny     10MB
+--small   100MB
+--standard  1GB
+--big      10GB
+--huge    100GB
+--tera      1TB
+--ten-tera 10TB
+
+If running one of the tests below individually, optional arguments are:
+A numeric argument is the number of bytes to test. If absent, use all
+data until end of file.
+--progress means to write progress reports from time to time.
+
+
+v256
+====
+
+It reads in blocks of 256 bytes, ignoring any partial block left over
+at the end.
+
+For each block, it counts the number of different byte values seen. This
+must be in the range 1 to 256 inclusive. A tally is kept of how many
+times each possible count occurs. 3 different tests are done of
+the final tallies.
+
+minimum:
+The smallest count actually seen. If this is a lot larger or smaller
+than expected it results in a low P-value.
+
+maximum:
+Similarly the largest count actually seen.
+
+chi-squared:
+This is a chi-squared test of the tallies against expected values.
+Tallies for counts <= 145 are aggregated into a single bucket, as
+are tallies for counts >= 178. This is because expected tallies far out
+on the tails are too small to be effectively used with chi-squared.
+df=33. Only failures on the high side translate into low P-values.
+
+The final message starting with "P =" is a summary P-value made
+by combining the values from the 3 sub-tests.
+
+Under mcp, this test is done at full size.
+
+Inspirations: all my own work, though the idea is very simple and has probably
+been used before somewhere. (I'm hearing rumours it may go back to Kendall
+and Babington-Smith though possibly with some details changed.)
+
+
+sh5da
+=====
+
+Actually it reads in blocks of 20 bytes, ignoring any partial block left over
+at the end.
+
+The 20 byte block is converted to 5 x 32 bit unsigned integers, in two
+different ways, using the native byte order of the computer (which is
+hopefully either big-endian or little-endian), and the opposite byte order.
+These then feed two seperate but identical tests as follows:
+
+The order of the 5 integers (ie. their relationships according to < operator
+on unsigned 32 bit ints) is calculated. There are 5! different possible
+orders.
+
+Each block of 20 input bytes is thus tranformed into a single value in
+the range 0 to 119. The stream of these values is then analysed using
+the gap test (see rda below) with gaps 366 and larger aggregated into
+a single bucket.
+
+At the end, a chi-squared test is done on the tallies. The possibility
+that some of the 5 numbers might be equal is basically ignored in the
+calculation. It is likely that this will cause false alarms if runs
+longer than about 1e17 bytes are attempted.
+
+A P-value is calculated for each chi-squared test. In addition an
+"extreme" test similar to that in rda is done, starting at verison 4.1.1 .
+The four tests are combined for a final P-value.
+
+Under mcp, this test is done at full size.
+
+Inspirations: Marsaglia's Diehard has a test involving ordering of
+five consectutive integers, though he handles it differently.
+See also rda. It was my (trivial) idea to combine the two ideas.
+
+
+z9
+==
+
+Takes an additional optional arg, "-t".
+Actually it reads in blocks of 4 kilobytes, ignoring any partial block
+left over at the end.
+
+If -t is absent, various tests are done relating to the balance of 0 and 1
+bits, as described below. If -t is present, exactly the same tests are done,
+but read "bit different to the previous bit" where it says "1 bit", and
+"bit same as previous" where it says "0 bit".
+
+Three similar tests are done, each with a different wordsize: 32 bit,
+128 bit, 512 bit.
+
+Each word is reduced to a count of bits set to one, then further reduced
+to a number 0 to 2 representing low, medium, or high. 8 consecutive words
+are reduced to a number in the range 0 to 3**8-1, and tallies of each possible
+number are kept. These 8-blocks overlap, starting at each word boundary.
+Also the number of bits (minus half the word size) of the word immediately
+after the 8-blocks is summed and stored alongside the tally.
+
+At the end some simple normalisations are done so that the sums should be
+from an approximate normal distribution all with the same standard deviation.
+
+A three-way transform in 8 dimensions is then done on the sums.
+
+Take the transformed value with largest absolute value (not counting the one
+at index 0, which is special). Convert to a P-value. This is low only if the
+largest absolute value is further from zero than expected.
+
+Under mcp, this test is done at full size without "-t" and at full size
+with "-t".
+
+Inspirations: During 2007 Bob Jenkins and "orz" were discussing on Usenet news
+a test based on Marsaglia's "COUNT-THE-1's", but with 32 bit words and other
+tweaks. For certain kinds of generators it found flaws largely invisible to
+other tests they tried. z9 has now drifted a long way from that, but still
+owes a lot to the concept in "COUNT-THE-1's".
+
+mod3
+====
+
+It reads in blocks of 4 bytes, ignoring any partial block left over
+at the end.
+
+Each 4 byte block is reduced by dividing by 3 and taking the remainder,
+resulting in a number 0 to 2. 9 consecutive 4 byte blocks are reduced to a
+number in the range 0 to 3**9-1, and tallies of each possible number are kept.
+These 9-blocks overlap, starting at each 4 byte boundary.
+
+Two tests are done. One is essentially a chi-squared test on the counts, with
+a (probably not very accurate) correction for co-variance caused by the
+overlapping blocks.
+
+The other does a messy kind of transform. Think discrete cosine transform
+in 9 dimensions, but with a different set of wave functions. Hopefully the
+functions are an ortho-normal basis. Take the transformed value with largest
+absolute value (not counting the one at index 0, which is special). Convert
+to a P-value. This is low only if the largest absolute value is further
+from zero than expected.
+
+Under mcp, this test is done at full size.
+
+selfcor
+=======
+
+It reads in blocks of 128 kiloBytes ignoring any partial block left over
+at the end. This block is then split into 2 interleaved streams of 64 kB each,
+and processed seperately from here on.
+
+First each byte is converted to a value uniformly distributed on [ -255 255 ].
+in two different ways (called "forward" and "reverse"). One of the streams
+uses "forward" and one uses "reverse". These then feed two seperate but
+identical tests as follows:
+
+The values are accumulated in a vector of 64K entries. (Think of it as a
+random walk in 64K dimensional space.) Every 64K th input will be summed into
+vector entry 0, all the inputs immediately after those into vector entry 1
+etc. If the input is uniformly random bits and reasonably long, the resulting
+vector should be very close to normally distributed with mean 0 and expected
+standard deviation easily calculated, and each entry independent of the others.
+
+After the whole input stream has been processed into the vectors, each vector
+is now treated as a stream of 64K entries with wraparound, and auto-correlation
+is calculated for all lags from 1 to 32K. These autocorrelations are now
+normalised so that (assuming original input random) each entry should be from
+a distribution very close to normal with mean 0 and standard deviation 1.
+(Unfortunately, different entries should not be independent, but i ignore this,
+apparently without any serious consequences.)
+
+The single normalised auto-correlation furthest from 0 is singled out
+for calculation of the P-value. A low P-value results only if the correlation
+is too large in absolute value. (A worst correlation being too small in
+absolute value seems both less likely and less dangerous from a bad generator.)
+
+The two are then combined for a final P-value.
+
+Under mcp, this test is done at full size.
+
+Inspirations: This is kind of a combination of the random walk test in many
+dimensions, and the auto-correlation test. Both these are old and well known
+but i don't know who invented them. It was my (trivial) idea to combine the two.
+
+
+rda
+===
+
+There are three seperate sub-tests.
+
+chisquare:
+This treats the file as bytes and analyses "gaps" between bytes of the
+same value. Consider the string
+"abcaacab". The first three bytes set the scene. After that we see:
+a : gap to previous a is 3
+a : gap to previous a is 1
+c : gap to previous c is 3
+a : gap to previous a is 2
+b : gap to previous b is 6.
+The tally of gaps seen is therefore 1: 1 ; 2: 1 ; 3: 2 ; 4: 0 ; 5: 0 ; 6: 1.
+
+We collect a tally of gaps very similar to this. All gaps 751 and larger
+are aggregated into a single bucket since these large gaps are fairly
+infrequent and might cause difficulty in the chi-squared test.
+The expected counts in each bucket are easily calculated, and a chi-squared
+test is done. The result most likely doesn't follow the chi-squared
+distribution but it is close enough for the simple calculation done here.
+
+Only chi-squared values on the high side result in low P-value. Excessively
+low chi-squared values don't seem to occur "naturally" with bad generators,
+only with artificial examples.
+
+There is an apparently interesting question of what to do early in the file
+when seeing byte values for the first time. Actually for large files it
+hardly matters. rda currently does something very simple, fake, and arbitrary.
+
+extreme:
+An additional test is done on the same result vector, picking the single
+least likely bucket count and converting to a P-value.
+
+zero1st:
+This keeps a tally for each gap recording in addition whether a zero byte
+has been seen inside that gap. The least likely "zero1st" count is used
+to calculate a third P-value.
+
+The three P-values are combined to make a summary value.
+
+Under mcp, this test is done at full size.
+
+Inspirations: The "Gap" test of Kendall and Babington-Smith in 1938 is very
+similar, but apparently looks only at gaps between occurences of one
+particular value. This is also in Knuth. Bob Jenkins in "Isaac", 1994, gives
+source code for a test almost identical to the "chisquare" test. As far as
+i can remember i hadn't seen any of these (though i had seen the Maurer test
+which is closely related) and just made it up in 2005, calling it "Repeat
+Distance Analysis". "Gap Test" should be prefered, of course, since it is old
+and well-known under that name. zero1st is new in 4.1.1 (and a couple of older
+ideas have been dropped). It is my own idea but is an obvious extension of
+the old gap test.
+
+slicerda
+========
+
+It reads in blocks of 16 bytes, ignoring any partial block left over
+at the end. It does 16 identical and independent sub-tests on different parts
+of the data.
+
+The 16 bytes are assembled into 4 x 32 bit words, (using the native machine
+byte ordering, though this is not important). These are then repacked
+to make 16 x 8 bit bytes by taking two corresponding bits from each word.
+eg. The two least significant bits from each word are packed together
+to make a 8 bit byte, and similarly for 15 other non-overlapping bit
+positions. The resulting 16 bytes per block are then fed as independent
+streams to 16 different Kendall and Babington-Smith Gap tests as described
+in rda. (Currently only the "simple" variety.)
+
+The P-value is calculated for each rda, and then these are combined.
+
+Under mcp, this test is done at one third size.
+
+Inspirations: see also rda above.
+The idea of using bitslicing to reassemble words for testing is found in
+several of Marsaglia's Diehard tests.
+
+
+diff12
+======
+
+This has an additional optional argument --shift=n where n is from
+0 to 5. 0 is the default.
+
+Blocks of 12 numbers of 16 bits each are processed. Any partial block
+at the end is ignored. Only 11 bits of each number are used. By default
+it's the least significant 11 bits. Use --shift to choose different bits.
+
+Points in 12 dimensional space are analysed for differences and higher order
+differences up to the 11th order.
+
+One obvious feature of this test is that it is very tough on "lattice"
+structures as produced by linear congruential generators. It may also pick up
+other kinds of regular structure but that is yet to be demonstrated.
+
+Under mcp, this test is done at one seventh size, and with no shift.
+
+rda16
+=====
+
+This is very similar to rda but does 16 bit words instead of bytes.
+
+There is an additional test recording distance from the current word
+back to the last zero word, and whether the current word value has
+been seen since the zero.
+
+Another difference is at the start of file. rda16 uses words early
+in the input only to initialise the "last place seen" information,
+and does not gather any gap statistics until the "last place seen"
+table is complete.
+
+Under mcp, this test is done at one twelfth size.
+
+nda
+===
+
+The input is processed as a sequence of 4 bit nibbles. For each input byte,
+the least significant 4 bits make the first nibble, and the most significant
+the second nibble.
+
+With each nibble seen, calculate the distance back to the most recent
+occurence of all 16 nibble values. All distances 49 and longer are aggregated.
+Keep tallies counting all combinations of
+(this nibble value) X (other nibble value) X (distance since seen).
+
+Select the single tally furthest from expectation value and
+calculate a P-value based on that.
+
+In addition (starting version 3.0.1.0), for each (distance since seen) do
+a Walsh-Hadamard transform over all (this nibble value) X (other nibble value).
+Select the transformed value with greatest absolute value and calculate
+a second P-value.
+
+Then combine the two P-values for a final result.
+
+Under mcp, this test is done at 1/28 size.
+
+Inspirations: At the time, Maurer's Universal Statistical Test, which is
+theoretically very neat, but in practice has to churn through far too much
+data to see trouble. nda was a desperate attempt to get more statistical power
+from a test looking at the same kind of properties. But actually it's closer
+to the Kendall and Babington-Smith gap test, which i hadn't seen yet.
+
+
+lownda
+======
+
+Like nda but building 4-bit nibbles from the least significant bit of
+each 32 bit word. Done at half size under mcp.
+
+
+binr
+====
+
+This one sets out using Gaussian elimination on a square binary matrix,
+trying to reduce it to an upper triangle matrix, perhaps to find out the
+determinant.
+The main statistic calculated is the number of pivot steps before failing to
+find a pivot, or actually finishing "normally".
+This is similar in spirit to the matrix rank, but not quite the same because
+we only try for a pivot in one column each time.
+
+The sizes start small and then step up to a maximum of 27264 by 27264.
+
+I have mixed feelings about including this. It's really only good for finding
+generators that are linear with respect to bitwise XOR (or at least have
+some bits which are linear). A lot of applications don't care about that.
+Also, it won't flag a really big linear generator, though it does now
+eventually get mt19937 .
+I find the quickest and most reliable way to spot linear generators is
+to inspect the source code. (Other tests for linearity are the Berlekamp-
+Massey algorithm, and my own xhodiff. At this stage binr looks faster and
+more flexible than my implementations of the other two, so binr is the one
+you get.)
+
+Under mcp, this test is done at 1/280 size.
+
+Inspirations: I think Marsaglia may have invented this idea. There are several
+binary matrix rank tests in Diehard. They are also in Testu01.

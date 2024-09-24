@@ -1,0 +1,70 @@
+RNG_test using PractRand version 0.94
+RNG = RNG_stdin32, seed = unknown
+test set = core, folding = standard (32 bit)
+
+rng=RNG_stdin32, seed=unknown
+length= 64 megabytes (2^26 bytes), time= 2.7 seconds
+  no anomalies in 140 test result(s)
+
+rng=RNG_stdin32, seed=unknown
+length= 128 megabytes (2^27 bytes), time= 6.9 seconds
+  no anomalies in 154 test result(s)
+
+rng=RNG_stdin32, seed=unknown
+length= 256 megabytes (2^28 bytes), time= 12.5 seconds
+  no anomalies in 165 test result(s)
+
+rng=RNG_stdin32, seed=unknown
+length= 512 megabytes (2^29 bytes), time= 21.9 seconds
+  Test Name                         Raw       Processed     Evaluation
+  [Low8/32]DC6-9x1Bytes-1           R=  +6.3  p =  1.8e-3   unusual          
+  ...and 177 test result(s) without anomalies
+
+rng=RNG_stdin32, seed=unknown
+length= 1 gigabyte (2^30 bytes), time= 39.0 seconds
+  no anomalies in 192 test result(s)
+
+rng=RNG_stdin32, seed=unknown
+length= 2 gigabytes (2^31 bytes), time= 71.1 seconds
+  no anomalies in 204 test result(s)
+
+rng=RNG_stdin32, seed=unknown
+length= 4 gigabytes (2^32 bytes), time= 133 seconds
+  no anomalies in 216 test result(s)
+
+rng=RNG_stdin32, seed=unknown
+length= 8 gigabytes (2^33 bytes), time= 220 seconds
+  no anomalies in 229 test result(s)
+
+rng=RNG_stdin32, seed=unknown
+length= 16 gigabytes (2^34 bytes), time= 320 seconds
+  Test Name                         Raw       Processed     Evaluation
+  [Low1/32]DC6-9x1Bytes-1           R=  +5.9  p =  3.1e-3   unusual          
+  ...and 239 test result(s) without anomalies
+
+rng=RNG_stdin32, seed=unknown
+length= 32 gigabytes (2^35 bytes), time= 758 seconds
+  no anomalies in 251 test result(s)
+
+rng=RNG_stdin32, seed=unknown
+length= 64 gigabytes (2^36 bytes), time= 1251 seconds
+  no anomalies in 263 test result(s)
+
+rng=RNG_stdin32, seed=unknown
+length= 128 gigabytes (2^37 bytes), time= 2052 seconds
+  no anomalies in 273 test result(s)
+
+rng=RNG_stdin32, seed=unknown
+length= 256 gigabytes (2^38 bytes), time= 3624 seconds
+  no anomalies in 284 test result(s)
+
+rng=RNG_stdin32, seed=unknown
+length= 512 gigabytes (2^39 bytes), time= 7572 seconds
+  no anomalies in 295 test result(s)
+
+rng=RNG_stdin32, seed=unknown
+length= 1 terabyte (2^40 bytes), time= 35198 seconds
+  Test Name                         Raw       Processed     Evaluation
+  [Low1/32]BCFN(2+2,13-0,T)         R=  -8.6  p =1-1.6e-4   unusual          
+  ...and 303 test result(s) without anomalies
+
