@@ -1,0 +1,263 @@
+
+***** MCP version 13 --huge *****
+
+
+
+============
+binr -c 1/280 (383479222 bytes)
+=======
+sh: 1: bin/binr: not found
+trouble [bin/binr -c 383479222 >> ./report.txt 2>&1]
+completed 0 ok, 1 crashed
+
+***** MCP version 13 --huge *****
+
+
+
+============
+binr -c 1/280 (383479222 bytes)
+=======
+sh: 1: bin/binr: not found
+trouble [bin/binr -c 383479222 >> ./report.txt 2>&1]
+completed 0 ok, 1 crashed
+
+***** MCP version 13 --huge *****
+
+
+
+============
+binr -c 1/280 (383479222 bytes)
+=======
+dim = 128 ; rnk = 128 ; p = 1
+dim = 640 ; rnk = 638 ; p = 0.5
+dim = 6656 ; rnk = 6651 ; p = 0.0625
+done 14 matrices ; largest 27264 X 27264
+
+processed in 355 seconds. Wed Aug 28 22:23:04 2024
+
+one sided P value (very small numbers are bad)
+P = 0.595
+
+
+============
+rda 1/1 (107374182400 bytes)
+=======
+chisquare (df=749)  720 (p = 0.768)
+extreme = 0.000482 (469 +) (p = 0.303)
+zero1st = 0.000926 (15 +) (p = 0.5)
+ext = 395516199 ; exk = 21184935 ; expect = 21169695
+
+processed 1.1e+11 bytes in 3.19e+03 seconds. Wed Aug 28 23:16:14 2024
+
+one sided P value (very small numbers are bad)
+P = 0.662
+
+
+============
+z9 1/1 (107374182400 bytes)
+=======
+mix3 extreme = 1.66190 (lags = 0011) low weight 44
+mix3 extreme = 2.97380 (lags = 00111) medium weight 378
+mix3 extreme = 4.03842 (lags = 12121101) high weight 6138
+bits per word =  32 : sub-test P value = 0.629
+
+mix3 extreme = 3.20602 (lags = 00002) low weight 44
+mix3 extreme = 2.87699 (lags = 00022) medium weight 378
+mix3 extreme = 3.49479 (lags = 10121022) high weight 6138
+bits per word = 128 : sub-test P value = 0.163
+
+mix3 extreme = 2.25944 (lags = 00100001) low weight 44
+mix3 extreme = 2.93933 (lags = 01010002) medium weight 378
+mix3 extreme = 3.43667 (lags = 12111101) high weight 6138
+bits per word = 512 : sub-test P value = 0.959
+
+processed 1.1e+11 bytes in 2.02e+03 seconds. Wed Aug 28 23:49:55 2024
+
+one sided P value (very small numbers are bad)
+P = 0.413
+
+
+============
+diff12 1/7 (15339168914 bytes)
+=======
+order =  0 : chis =       2128 ;  p = 0.206972
+order =  1 : chis =       2051 ;  p = 0.946429
+order =  2 : chis =       2100 ;  p = 0.401922
+order =  3 : chis =       2074 ;  p = 0.665122
+order =  4 : chis =       2022 ;  p = 0.699883
+order =  5 : chis =       2062 ;  p = 0.803093
+order =  6 : chis =       1994 ;  p = 0.40881
+order =  7 : chis =       2019 ;  p = 0.667372
+order =  8 : chis =       2049 ;  p = 0.968843
+order =  9 : chis =       2031 ;  p = 0.81293
+order = 10 : chis =       2061 ;  p = 0.823668
+order = 11 : chis =       2097 ;  p = 0.432706
+
+processed 1.5e+10 bytes in 1.32e+03 seconds. Thu Aug 29 00:11:58 2024
+
+one sided P value (very small numbers are bad)
+P = 0.938
+
+
+============
+lownda 1/2 (53687091200 bytes)
+=======
+extreme = 0.000275   (6 7 24 +)
+transform = 4.17   (9 4 23)
+pvals (0.966 0.317)
+
+processed 5.4e+10 bytes in 1.37e+03 seconds. Thu Aug 29 00:34:46 2024
+
+one sided P value (very small numbers are bad)
+P = 0.534
+
+
+============
+nda 1/28 (3834792228 bytes)
+=======
+extreme = 0.000179   (3 5 18 -)
+transform = 3.91   (f 8 7)
+pvals (0.889 0.679)
+
+processed 3.8e+09 bytes in 1.63e+03 seconds. Thu Aug 29 01:01:55 2024
+
+one sided P value (very small numbers are bad)
+P = 0.897
+
+
+============
+v256 1/1 (107374182400 bytes)
+=======
+minimum = 132  (prob =    0.1866522557    0.5108212445)
+maximum = 191  (prob =    0.3291163874    0.7559264993)
+
+expected range [ 14.0 17.8 23.9 44.9 56.1 65.3 ]
+chi-squared =        36.45510
+
+processed 1.1e+11 bytes in 2.5e+03 seconds. Thu Aug 29 01:43:40 2024
+
+one sided P value (very small numbers are bad)
+P = 0.673
+
+
+============
+mod3 1/1 (107374182400 bytes)
+=======
+chis =         19748.6 ; df = 19682 ; p = 0.36752
+mix3 extreme = 4.00632 ; p = 0.55482
+
+processed 1.1e+11 bytes in 2.55e+03 seconds. Thu Aug 29 02:26:06 2024
+
+one sided P value (very small numbers are bad)
+P = 0.6
+
+
+============
+selfcor 1/1 (107374182400 bytes)
+=======
+forward (msb) : mean=-0.003561 ; sd=1.009109 ; ext = -3.988102 (18857)
+==> p = 0.887
+reverse (lsb) : mean=-0.002088 ; sd=1.004798 ; ext = -4.407392 (25556)
+==> p = 0.29
+
+processed 1.1e+11 bytes in 2.69e+03 seconds. Thu Aug 29 03:10:52 2024
+
+one sided P value (very small numbers are bad)
+P = 0.496
+
+
+============
+rda16 1/12 (8947848533 bytes)
+=======
+simple
+chis = 70167 (p = 0.326)
+extreme = 1.59e-06 (10723 +) (p = 0.105)
+zero1st = 0.000171 (2569 +) (p = 1)
+ext = 65481 ; exk = 2707 ; expect = 2.52e+03
+
+zero1st
+zero1st = 7.71e-05 (1970 -) (p = 0.995)
+ext = 66558 ; exk = 1797 ; expect = 1.97e+03
+
+
+processed 8.9e+09 bytes in 556 seconds. Thu Aug 29 03:20:08 2024
+
+one sided P value (very small numbers are bad)
+P = 0.359
+
+
+============
+z9 -t 1/1 (107374182400 bytes)
+=======
+transitions
+mix3 extreme = 3.60322 (lags = 000101) low weight 44
+mix3 extreme = 3.36172 (lags = 00000201) medium weight 378
+mix3 extreme = 3.84605 (lags = 0102002) high weight 6138
+bits per word =  32 : sub-test P value = 0.0406
+
+mix3 extreme = 1.88091 (lags = 00000101) low weight 44
+mix3 extreme = 2.67342 (lags = 00010012) medium weight 378
+mix3 extreme = 3.47600 (lags = 01021221) high weight 6138
+bits per word = 128 : sub-test P value = 1
+
+mix3 extreme = 2.35320 (lags = 00000001) low weight 44
+mix3 extreme = 3.45303 (lags = 0110002) medium weight 378
+mix3 extreme = 3.89177 (lags = 21100011) high weight 6138
+bits per word = 512 : sub-test P value = 0.467
+
+processed 1.1e+11 bytes in 2.98e+03 seconds. Thu Aug 29 04:09:50 2024
+
+one sided P value (very small numbers are bad)
+P = 0.117
+
+
+============
+sh5da 1/1 (107374182400 bytes)
+=======
+native byte order : (df=364) chis=384.91  p = 0.216
+extreme = 0.000342 (308 +) (p = 0.118)
+reverse byte order: (df=364) chis=365.56  p = 0.467
+extreme = 0.00809 (334 +) (p = 0.948)
+
+processed 1.1e+11 bytes in 1.95e+03 seconds. Thu Aug 29 04:42:23 2024
+
+one sided P value (very small numbers are bad)
+P = 0.394
+
+
+============
+slicerda 1/3 (35791394133 bytes)
+=======
+expected range [ 633 662 699 799 841 875 ]
+ 0 :       732.82972
+ 2 :       808.94746
+ 4 :       661.21101
+ 6 :       733.24811
+ 8 :       684.72790
+10 :       762.45503
+12 :       746.72707
+14 :       738.25223
+16 :       749.61253
+18 :       679.09047
+20 :       827.08602
+22 :       733.71566
+24 :       724.07780
+26 :       809.25073
+28 :       743.05687
+30 :       774.26156
+extreme = 0.000174 (20 670 +)
+pvals (0.328 0.875)
+
+processed 3.6e+10 bytes in 609 seconds. Thu Aug 29 04:52:32 2024
+
+one sided P value (very small numbers are bad)
+P = 0.548
+
+
+====================
+completed 13 tests
+13 out of 13 tests ok.
+
+
+Overall summary one sided P-value (smaller numbers bad)
+P = 0.802 : ok

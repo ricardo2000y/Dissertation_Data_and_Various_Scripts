@@ -1,0 +1,25 @@
+#!/bin/sh
+
+# compile script for the programs in this directory.
+# works ok on my machine with Linux/GCC .
+
+. ../../compiler
+
+for i in blat*.c
+do
+	echo $i :
+	j=`basename $i .c`
+	eval $CC $CFLAGS $i ../../src/gjrand.a $LDFLAGS -o ../gen/$j
+done
+
+for i in selfcor v256 rda rda16 nda lownda slicerda sh5da mod3 diff12 binr z9
+do
+	echo $i :
+	eval $CC $CFLAGS $i.c -lm $LDFLAGS -o ../bin/$i
+done
+
+for i in mcp pmcp
+do
+	echo $i :
+	eval $CC $CFLAGS $i.c -lm $LDFLAGS -o ../$i
+done
